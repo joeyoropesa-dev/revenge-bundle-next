@@ -14,9 +14,16 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    # Added permissions to allow the action to write back to the repo
+    permissions:
+      contents: write
+      
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Fetch all history so we can push back to the branch
+          fetch-depth: 0
 
       - name: Restore Bun cache
         uses: actions/cache@v4
@@ -37,7 +44,7 @@ jobs:
       - name: Build development bundle
         run: bun run build --dev
 
-      - name: Upload development bundle
+      - name: Upload development bundle (Artifact)
         uses: actions/upload-artifact@v4
         with:
           name: revenge-bundle-development
@@ -50,9 +57,19 @@ jobs:
       - name: Build production bundle
         run: bun run build
 
-      - name: Upload production bundle
+      - name: Upload production bundle (Artifact)
         uses: actions/upload-artifact@v4
         with:
           name: revenge-bundle
           path: dist/revenge.bundle
           if-no-files-found: error
+
+      # --- NEW STEP: Push to Repository ---
+      - name: Commit and Push bundle to Root
+        run: |
+          cp dist/revenge.bundle ./revenge.bundle
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add revenge.bundle
+          git commit -m "chore: update revenge.bundle [skip ci]" || echo "No changes to commit"
+          git push
