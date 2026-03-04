@@ -44,12 +44,12 @@ jobs:
       - name: Build development bundle
         run: bun run build --dev
 
-      - name: Upload development bundle (Artifact)
-        uses: actions/upload-artifact@v4
-        with:
-          name: revenge-bundle-development
-          path: dist/revenge.bundle
-          if-no-files-found: error
+#       - name: Upload development bundle (Artifact)
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: revenge-bundle-development
+#          path: dist/revenge.bundle
+#          if-no-files-found: error
 
       - name: Clear build
         run: rm -rf dist
@@ -57,19 +57,19 @@ jobs:
       - name: Build production bundle
         run: bun run build
 
-      - name: Upload production bundle (Artifact)
-        uses: actions/upload-artifact@v4
-        with:
-          name: revenge-bundle
-          path: dist/revenge.bundle
-          if-no-files-found: error
+#      - name: Upload production bundle (Artifact)
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: revenge-bundle
+#          path: dist/revenge.bundle
+#          if-no-files-found: error
 
       # --- NEW STEP: Push to Repository ---
-      - name: Commit and Push bundle to Root
-        run: |
-          cp dist/revenge.bundle ./revenge.bundle
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add revenge.bundle
-          git commit -m "chore: update revenge.bundle [skip ci]" || echo "No changes to commit"
-          git push
+#      - name: Commit and Push bundle to Root
+#        run: |
+#          cp dist/revenge.bundle ./revenge.bundle
+#          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+#          git config --local user.name "github-actions[bot]"
+#          git add revenge.bundle
+#          git commit -m "chore: update revenge.bundle [skip ci]" || echo "No changes to commit"
+#          git push
