@@ -11,8 +11,11 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Sync upstream changes
-        res: github-actions/upload-gh-repo-sync@v2 # Or use native gh cli
+        # We use the built-in GitHub CLI (gh) which is pre-installed on the runner
         run: |
           gh repo sync ${{ github.repository }} -b main
         env:
