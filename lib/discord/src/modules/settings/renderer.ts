@@ -22,13 +22,13 @@ export let SettingListRenderer: SettingListRenderer = proxify(
         const [module] = lookupModule(
             withProps<SettingListRenderer>('SettingsList')
                 .and(
-                    // TODO: Remove once stable >319203
+                    // TODO: Remove once stable > 325201
                     withDependencies(
                         loose([
                             ReactModuleId,
                             ReactNativeModuleId,
+                            null,
                             relative(1),
-                            relative(2),
                             null,
                             ReactJSXRuntimeModuleId,
                         ]),
@@ -37,8 +37,8 @@ export let SettingListRenderer: SettingListRenderer = proxify(
                             loose([
                                 ReactModuleId,
                                 ReactNativeModuleId,
-                                null,
                                 relative(1),
+                                relative(2),
                                 null,
                                 ReactJSXRuntimeModuleId,
                             ]),
